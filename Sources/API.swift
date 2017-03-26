@@ -1,7 +1,7 @@
 import Foundation
 import CodeQuickKit
 
-public class DynuAPI: WebAPI {
+public class API: WebAPI {
     public var username: String = ""
     public var password: String = ""
     
@@ -39,7 +39,7 @@ public class DynuAPI: WebAPI {
             queryItems.append(URLQueryItem(name: "myipv6", value: ip))
         } else {
             Log.warn("IP Address was not IPv4 nor IPv6")
-            completion(DynuCode.unknown.httpStatusCode, nil, nil, DynuCode.unknown.error)
+            completion(ResponseCode.badRequest.rawValue, nil, nil, ResponseCode.badRequest.error)
             return
         }
         
@@ -53,18 +53,18 @@ public class DynuAPI: WebAPI {
         
         execute(path: "nic/update", queryItems: queryItems, method: .Get, data: nil) { (statusCode, response, responseObject, error) in
             guard let data = responseObject as? Data else {
-                completion(DynuCode.unknown.httpStatusCode, response, responseObject, DynuCode.unknown.error)
+                completion(ResponseCode.badRequest.rawValue, response, responseObject, ResponseCode.badRequest.error)
                 return
             }
             
             guard let body = String(data: data, encoding: .utf8) else {
-                completion(DynuCode.unknown.httpStatusCode, response, responseObject, DynuCode.unknown.error)
+                completion(ResponseCode.badRequest.rawValue, response, responseObject, ResponseCode.badRequest.error)
                 return
             }
             
-            let code = DynuCode(responseString: body)
+            let code = ResponseCode(stringValue: body)
             
-            completion(code.httpStatusCode, response, responseObject, code.error)
+            completion(code.rawValue, response, responseObject, code.error)
         }
     }
 }

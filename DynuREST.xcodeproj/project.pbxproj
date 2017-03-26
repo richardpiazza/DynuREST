@@ -12,8 +12,8 @@
 		E189B5B41E857164009A63F4 /* DynuREST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E189B5AA1E857164009A63F4 /* DynuREST.framework */; };
 		E189B5B91E857164009A63F4 /* DynuRESTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5B81E857164009A63F4 /* DynuRESTTests.swift */; };
 		E189B5BB1E857164009A63F4 /* DynuREST.h in Headers */ = {isa = PBXBuildFile; fileRef = E189B5AD1E857164009A63F4 /* DynuREST.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E189B5CF1E857474009A63F4 /* DynuAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5CD1E857474009A63F4 /* DynuAPI.swift */; };
-		E189B5D01E857474009A63F4 /* DynuCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5CE1E857474009A63F4 /* DynuCode.swift */; };
+		E189B5CF1E857474009A63F4 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5CD1E857474009A63F4 /* API.swift */; };
+		E189B5D01E857474009A63F4 /* ResponseCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5CE1E857474009A63F4 /* ResponseCode.swift */; };
 		E189B5D21E8574BF009A63F4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5D11E8574BF009A63F4 /* String.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +44,8 @@
 		E189B5C51E85720B009A63F4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		E189B5C61E85720B009A63F4 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		E189B5C71E85720B009A63F4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		E189B5CD1E857474009A63F4 /* DynuAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynuAPI.swift; sourceTree = "<group>"; };
-		E189B5CE1E857474009A63F4 /* DynuCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynuCode.swift; sourceTree = "<group>"; };
+		E189B5CD1E857474009A63F4 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		E189B5CE1E857474009A63F4 /* ResponseCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseCode.swift; sourceTree = "<group>"; };
 		E189B5D11E8574BF009A63F4 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,8 +136,8 @@
 		E189B5CC1E857474009A63F4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E189B5CD1E857474009A63F4 /* DynuAPI.swift */,
-				E189B5CE1E857474009A63F4 /* DynuCode.swift */,
+				E189B5CD1E857474009A63F4 /* API.swift */,
+				E189B5CE1E857474009A63F4 /* ResponseCode.swift */,
 				E189B5D11E8574BF009A63F4 /* String.swift */,
 			);
 			path = Sources;
@@ -338,8 +338,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E189B5D21E8574BF009A63F4 /* String.swift in Sources */,
-				E189B5D01E857474009A63F4 /* DynuCode.swift in Sources */,
-				E189B5CF1E857474009A63F4 /* DynuAPI.swift in Sources */,
+				E189B5D01E857474009A63F4 /* ResponseCode.swift in Sources */,
+				E189B5CF1E857474009A63F4 /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
