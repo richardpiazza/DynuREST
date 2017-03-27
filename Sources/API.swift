@@ -1,6 +1,9 @@
 import Foundation
 import CodeQuickKit
 
+/// API
+/// Provides a wrapper around CodeQuickKit.WebAPI that expands for a username/password credential
+/// combination. The `update()` function will execute the query and parse the `ResponseCode` returned.
 public class API: WebAPI {
     public var username: String = ""
     public var password: String = ""

@@ -1,5 +1,7 @@
 import Foundation
 
+/// A reprsentation of the status codes that should be returned from the Dynu.com API.
+/// Use the init(stringValue:) with the test response fo parse the correct response.
 public enum ResponseCode: Int {
     case ok = 200
     case noContent = 204
@@ -64,6 +66,7 @@ public enum ResponseCode: Int {
         }
     }
     
+    /// An associated NSError with failure reasons and recovery suggestions.
     public var error: NSError? {
         switch self {
         case .ok, .noContent:
