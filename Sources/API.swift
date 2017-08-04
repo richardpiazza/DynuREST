@@ -8,32 +8,34 @@ public class API: WebAPI {
     public var username: String = ""
     public var password: String = ""
     
+    public enum Errors: Error {
+        case invalidAuthentication
+    }
+    
     public convenience init(username: String, password: String) {
         self.init(baseURL: URL(string: "https://api.dynu.com"), sessionDelegate: nil)
         self.username = username
         self.password = password
     }
     
-    override public func request(forPath path: String, queryItems: [URLQueryItem]?, method: WebAPIRequestMethod, data: Data?) -> NSMutableURLRequest? {
-        guard let request = super.request(forPath: path, queryItems: queryItems, method: method, data: data) else {
-            return nil
-        }
+    public override func request(method: WebAPI.HTTPRequestMethod, path: String, queryItems: [URLQueryItem]?, data: Data?) throws -> NSMutableURLRequest {
+        let request = try super.request(method: method, path: path, queryItems: queryItems, data: data)
         
         let userpass = "\(username):\(password)"
         
         guard let data = userpass.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
-            return nil
+            throw Errors.invalidAuthentication
         }
         
         let base64 = data.base64EncodedString(options: [])
         let auth = "Basic \(base64)"
         
-        request.setValue(auth, forHTTPHeaderField: WebAPIHeaderKey.Authorization)
+        request.setValue(auth, forHTTPHeaderField: WebAPI.HTTPHeaderKey.Authorization)
         
         return request
     }
     
-    public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping WebAPICompletion) {
+    public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping WebAPIRequestCompletion) {
         var queryItems = [URLQueryItem]()
         
         if ip.isIPv4 {
@@ -54,20 +56,21 @@ public class API: WebAPI {
             queryItems.append(URLQueryItem(name: "location", value: location))
         }
         
-        execute(path: "nic/update", queryItems: queryItems, method: .Get, data: nil) { (statusCode, response, responseObject, error) in
-            guard let data = responseObject as? Data else {
-                completion(ResponseCode.badRequest.rawValue, response, responseObject, ResponseCode.badRequest.error)
+        
+        self.get("nic/update", queryItems: queryItems) { (statusCode, headers, data, error) in
+            guard let responseObject = data else {
+                completion(ResponseCode.badRequest.rawValue, headers, data, ResponseCode.badRequest.error)
                 return
             }
             
-            guard let body = String(data: data, encoding: .utf8) else {
-                completion(ResponseCode.badRequest.rawValue, response, responseObject, ResponseCode.badRequest.error)
+            guard let body = String(data: responseObject, encoding: .utf8) else {
+                completion(ResponseCode.badRequest.rawValue, headers, responseObject, ResponseCode.badRequest.error)
                 return
             }
             
             let code = ResponseCode(stringValue: body)
             
-            completion(code.rawValue, response, responseObject, code.error)
+            completion(code.rawValue, headers, data, code.error)
         }
     }
 }

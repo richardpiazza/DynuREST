@@ -1,13 +1,13 @@
 PODS:
-  - CodeQuickKit (4.2.0):
-    - CodeQuickKit/iOS (= 4.2.0)
+  - CodeQuickKit (5.0.3):
+    - CodeQuickKit/iOS (= 5.0.3)
 
 DEPENDENCIES:
-  - CodeQuickKit (~> 4.2)
+  - CodeQuickKit (~> 5.0)
 
 SPEC CHECKSUMS:
-  CodeQuickKit: 120b2fe30b500c562ac3382d6cdab1834122f5fc
+  CodeQuickKit: 1a93019176bff93b5547de239ea691ccdcfdc226
 
-PODFILE CHECKSUM: 02a45d1d4982bc11577e05d01af91c0d1debf79e
+PODFILE CHECKSUM: 05a82ee10bb5dbb7860ee09ffa50424142039ba7
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1

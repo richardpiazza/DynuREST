@@ -30,6 +30,6 @@ import PackageDescription
 let package = Package(
     name: "DynuREST",
     dependencies: [
-        .Package(url: "https://github.com/richardpiazza/CodeQuickKit.git", majorVersion: 4, minor: 2)
+        .Package(url: "https://github.com/richardpiazza/CodeQuickKit.git", majorVersion: 5, minor: 0)
     ]
 )

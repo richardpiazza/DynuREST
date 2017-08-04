@@ -11,7 +11,7 @@ Provides a wrapper around CodeQuickKit.WebAPI that expands for a username/passwo
 Typical use:
 
     let api = API(username: "username", password: "password")
-    api.update(ip: "127.0.0.1") { (statusCode, response, responseObject, error) in
+    api.update(ip: "127.0.0.1") { (statusCode, headers, data, error) in
         guard error == nil else {
             // Process Error
             return
