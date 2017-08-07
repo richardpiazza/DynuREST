@@ -5,6 +5,12 @@ import CodeQuickKit
 /// Provides a wrapper around CodeQuickKit.WebAPI that expands for a username/password credential
 /// combination. The `update()` function will execute the query and parse the `ResponseCode` returned.
 public class API: WebAPI {
+    public static var shared: API = API()
+    public static var insecure: API = API(secure: false)
+    
+    private static var http = "http://api.dynu.com"
+    private static var https = "https://api.dynu.com"
+    
     public var username: String = ""
     public var password: String = ""
     
@@ -12,8 +18,20 @@ public class API: WebAPI {
         case invalidAuthentication
     }
     
-    public convenience init(username: String, password: String) {
-        self.init(baseURL: URL(string: "https://api.dynu.com"), sessionDelegate: nil)
+    public convenience init(secure: Bool = true) {
+        var url = type(of: self).http
+        if secure {
+            url = type(of: self).https
+        }
+        self.init(baseURL: URL(string: url), sessionDelegate: nil)
+    }
+    
+    public convenience init(username: String, password: String, secure: Bool = true) {
+        var url = type(of: self).http
+        if secure {
+            url = type(of: self).https
+        }
+        self.init(baseURL: URL(string: url), sessionDelegate: nil)
         self.username = username
         self.password = password
     }

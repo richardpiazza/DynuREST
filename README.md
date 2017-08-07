@@ -25,6 +25,22 @@ Typical use:
         // All good
     }
 
+Insecure use:
+
+The current version of the api.dynu.com SSL Certificate does not work with iOS11.0 and macOS10.13. In order to execute updates, an insecure HTTP connection must be used. In order to use this connection, your app must explicitly bypass App Transport Security in your Info.plist.
+
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>api.dynu.com</key>
+            <dict>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+            </dict>
+        </dict>
+    </dict>
+
 #### ResponseCode.swift
 
 A reprsentation of the status codes that should be returned from the Dynu.com API. Use the init(stringValue:) with the test response fo parse the correct response.

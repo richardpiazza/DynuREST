@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "DynuREST"
-  s.version = "0.2.0"
+  s.version = "0.2.1"
   s.summary = "An API wrapper for the Dynu.com IP Update API which attempts to model text responses to HTTP Status Codes."
   s.description = <<-DESC
   Face it... a REST API that responds in only text doesn't feel very modern. DynuREST attempts to translate the text
