@@ -1,8 +1,8 @@
 import Foundation
 
 /// A reprsentation of the status codes that should be returned from the Dynu.com API.
-/// Use the init(stringValue:) with the test response fo parse the correct response.
-public enum ResponseCode: Int {
+/// Use the init(stringValue:) with the test response to parse the correct response.
+public enum ResponseCode: Int, Error, LocalizedError {
     case ok = 200
     case noContent = 204
     case badRequest = 400
@@ -33,18 +33,7 @@ public enum ResponseCode: Int {
         }
     }
     
-    private var localizedDescription: String {
-        switch self {
-        case .ok, .noContent: return ""
-        case .unauthorized, .forbidden: return "Invalid Credentials"
-        case .toManyRequests: return "Temporarily Suspend Updates"
-        case .internalServerError: return "Server-Side Error"
-        case .serviceUnavailable: return "Temporarily Suspend Updates"
-        default: return "Bad Request"
-        }
-    }
-    
-    private var localizedFailureReason: String {
+    public var errorDescription: String? {
         switch self {
         case .ok, .noContent: return ""
         case .unauthorized, .forbidden: return "Failed authentication for the request or the account was forbidden."
@@ -52,31 +41,6 @@ public enum ResponseCode: Int {
         case .internalServerError: return "An error was encountered on the server side."
         case .serviceUnavailable: return "The server may be under scheduled maintenance."
         default: return "An invalid request with badly formatted parameters was made."
-        }
-    }
-    
-    private var localizedRecoverySuggestion: String {
-        switch self {
-        case .ok, .noContent: return ""
-        case .unauthorized, .forbidden: return "Check your username and ensure your account is in good standing."
-        case .toManyRequests: return "Wait 10 minutes and try the request again."
-        case .internalServerError: return "Please try the request again."
-        case .serviceUnavailable: return "Wait 10 minutes and try the request again."
-        default: return "Check all request fields and try the request again."
-        }
-    }
-    
-    /// An associated NSError with failure reasons and recovery suggestions.
-    public var error: NSError? {
-        switch self {
-        case .ok, .noContent:
-            return nil
-        default:
-            return NSError(domain: "DynuREST", code: self.rawValue, userInfo: [
-                NSLocalizedDescriptionKey : localizedDescription,
-                NSLocalizedFailureReasonErrorKey : localizedFailureReason,
-                NSLocalizedRecoverySuggestionErrorKey : localizedRecoverySuggestion
-                ])
         }
     }
 }

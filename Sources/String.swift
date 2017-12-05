@@ -5,7 +5,7 @@ extension String {
     private func matchInPattern(_ pattern: String) -> Bool {
         do {
             let expression = try NSRegularExpression(pattern: pattern, options: [])
-            let match = expression.matches(in: self, options: [], range: NSRange(location: 0, length: self.characters.count))
+            let match = expression.matches(in: self, options: [], range: NSRange(location: 0, length: self.count))
             return match.count > 0
         } catch {
             print(error)

@@ -1,30 +1,3 @@
-//===----------------------------------------------------------------------===//
-//
-// NumberFormatter.swift
-//
-// Copyright (c) 2016 Richard Piazza
-// https://github.com/richardpiazza/CodeQuickKit
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-//
-//===----------------------------------------------------------------------===//
-
 import Foundation
 
 public enum NumberFormat {
@@ -82,8 +55,8 @@ public extension NumberFormatter {
         maximumFractionDigits = format.maximumFractionDigits
     }
     
-    /// An NSNumberFormatter for whole integers.
-    /// Uses the NSNumberFormatterDecimalStyle with MaximumFractionDigits set to
+    /// An NumberFormatter for whole integers.
+    /// Uses the NumberFormatterDecimalStyle with MaximumFractionDigits set to
     /// 0 (zero).
     public static func integerFormatter() -> NumberFormatter {
         return common.integerFormatter
@@ -97,8 +70,8 @@ public extension NumberFormatter {
         return common.integerFormatter.string(from: NSNumber(value: number))
     }
     
-    /// An NSNumberFormatter for whole integers.
-    /// Uses the NSNumberFormatterDecimalStyle with MaximumFractionDigits set to
+    /// An NumberFormatter for whole integers.
+    /// Uses the NumberFormatterDecimalStyle with MaximumFractionDigits set to
     /// 1 (one).
     public static func singleDecimalFormatter() -> NumberFormatter {
         return common.singleDecimalFormatter
@@ -112,8 +85,8 @@ public extension NumberFormatter {
         return common.singleDecimalFormatter.string(from: NSNumber(value: number))
     }
     
-    /// An NSNumberFormatter for whole integers.
-    /// Uses the NSNumberFormatterDecimalStyle with MaximumFractionDigits set to
+    /// An NumberFormatter for whole integers.
+    /// Uses the NumberFormatterDecimalStyle with MaximumFractionDigits set to
     /// 2 (two).
     public static func decimalFormatter() -> NumberFormatter {
         return common.decimalFormatter
@@ -127,8 +100,8 @@ public extension NumberFormatter {
         return common.decimalFormatter.string(from: NSNumber(value: number))
     }
     
-    /// An NSNumberFormatter for whole integers.
-    /// Uses the NSNumberFormatterCurrencyStyle.
+    /// An NumberFormatter for whole integers.
+    /// Uses the NumberFormatterCurrencyStyle.
     public static func currencyFormatter() -> NumberFormatter {
         return common.currencyFormatter
     }
@@ -141,8 +114,8 @@ public extension NumberFormatter {
         return common.currencyFormatter.string(from: NSNumber(value: number))
     }
     
-    /// An NSNumberFormatter for whole integers.
-    /// Uses the NSNumberFormatterPercentStyle with MinimumFractionDigits set to
+    /// An NumberFormatter for whole integers.
+    /// Uses the NumberFormatterPercentStyle with MinimumFractionDigits set to
     /// 1 (one) and MaximumFractionDigits set to 3 (three).
     public static func percentFormatter() -> NumberFormatter {
         return common.percentFormatter

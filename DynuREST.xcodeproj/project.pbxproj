@@ -10,11 +10,11 @@
 		26609FB11AE3CB5A020BF3F8 /* Pods_DynuREST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FEF1DC6D197E0A6491E7D3 /* Pods_DynuREST.framework */; };
 		C4F66348766947EF5D65CED8 /* Pods_DynuRESTTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D80B48B8708A350FF2D775A6 /* Pods_DynuRESTTests.framework */; };
 		E189B5B41E857164009A63F4 /* DynuREST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E189B5AA1E857164009A63F4 /* DynuREST.framework */; };
-		E189B5B91E857164009A63F4 /* DynuRESTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5B81E857164009A63F4 /* DynuRESTTests.swift */; };
 		E189B5BB1E857164009A63F4 /* DynuREST.h in Headers */ = {isa = PBXBuildFile; fileRef = E189B5AD1E857164009A63F4 /* DynuREST.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E189B5CF1E857474009A63F4 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5CD1E857474009A63F4 /* API.swift */; };
 		E189B5D01E857474009A63F4 /* ResponseCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5CE1E857474009A63F4 /* ResponseCode.swift */; };
 		E189B5D21E8574BF009A63F4 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E189B5D11E8574BF009A63F4 /* String.swift */; };
+		E19784AA1FD6DF7B00048023 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19784A91FD6DF7B00048023 /* APITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 		E189B5AD1E857164009A63F4 /* DynuREST.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynuREST.h; sourceTree = "<group>"; };
 		E189B5AE1E857164009A63F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E189B5B31E857164009A63F4 /* DynuRESTTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DynuRESTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E189B5B81E857164009A63F4 /* DynuRESTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynuRESTTests.swift; sourceTree = "<group>"; };
 		E189B5BA1E857164009A63F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E189B5C41E85720B009A63F4 /* DynuREST.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DynuREST.podspec; sourceTree = "<group>"; };
 		E189B5C51E85720B009A63F4 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		E189B5CD1E857474009A63F4 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E189B5CE1E857474009A63F4 /* ResponseCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseCode.swift; sourceTree = "<group>"; };
 		E189B5D11E8574BF009A63F4 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		E19784A91FD6DF7B00048023 /* APITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +98,7 @@
 				E189B5C61E85720B009A63F4 /* Package.swift */,
 				E189B5C71E85720B009A63F4 /* README.md */,
 				E189B5CC1E857474009A63F4 /* Sources */,
+				E19784A81FD6DF6000048023 /* Tests */,
 				E189B5AC1E857164009A63F4 /* DynuREST */,
 				E189B5B71E857164009A63F4 /* DynuRESTTests */,
 				E189B5AB1E857164009A63F4 /* Products */,
@@ -127,7 +128,6 @@
 		E189B5B71E857164009A63F4 /* DynuRESTTests */ = {
 			isa = PBXGroup;
 			children = (
-				E189B5B81E857164009A63F4 /* DynuRESTTests.swift */,
 				E189B5BA1E857164009A63F4 /* Info.plist */,
 			);
 			path = DynuRESTTests;
@@ -141,6 +141,14 @@
 				E189B5D11E8574BF009A63F4 /* String.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		E19784A81FD6DF6000048023 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E19784A91FD6DF7B00048023 /* APITests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +270,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DynuRESTTests/Pods-DynuRESTTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CodeQuickKit/CodeQuickKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodeQuickKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -277,13 +288,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DynuREST-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7B299AA72EF022AAC50D37B2 /* [CP] Check Pods Manifest.lock */ = {
@@ -292,13 +306,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DynuRESTTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		90B8AFBF77337D2273C2A17C /* [CP] Copy Pods Resources */ = {
@@ -348,7 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E189B5B91E857164009A63F4 /* DynuRESTTests.swift in Sources */,
+				E19784AA1FD6DF7B00048023 /* APITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -463,7 +480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

@@ -14,10 +14,6 @@ public class API: WebAPI {
     public var username: String = ""
     public var password: String = ""
     
-    public enum Errors: Error {
-        case invalidAuthentication
-    }
-    
     public convenience init(secure: Bool = true) {
         var url = type(of: self).http
         if secure {
@@ -36,13 +32,13 @@ public class API: WebAPI {
         self.password = password
     }
     
-    public override func request(method: WebAPI.HTTPRequestMethod, path: String, queryItems: [URLQueryItem]?, data: Data?) throws -> NSMutableURLRequest {
-        let request = try super.request(method: method, path: path, queryItems: queryItems, data: data)
+    public override func request(method: WebAPI.HTTPRequestMethod, path: String, queryItems: [URLQueryItem]?, data: Data?) throws -> URLRequest {
+        var request = try super.request(method: method, path: path, queryItems: queryItems, data: data)
         
         let userpass = "\(username):\(password)"
         
         guard let data = userpass.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
-            throw Errors.invalidAuthentication
+            throw ResponseCode.unauthorized
         }
         
         let base64 = data.base64EncodedString(options: [])
@@ -62,7 +58,7 @@ public class API: WebAPI {
             queryItems.append(URLQueryItem(name: "myipv6", value: ip))
         } else {
             Log.warn("IP Address was not IPv4 nor IPv6")
-            completion(ResponseCode.badRequest.rawValue, nil, nil, ResponseCode.badRequest.error)
+            completion(ResponseCode.badRequest.rawValue, nil, nil, ResponseCode.badRequest)
             return
         }
         
@@ -77,18 +73,21 @@ public class API: WebAPI {
         
         self.get("nic/update", queryItems: queryItems) { (statusCode, headers, data, error) in
             guard let responseObject = data else {
-                completion(ResponseCode.badRequest.rawValue, headers, data, ResponseCode.badRequest.error)
+                completion(ResponseCode.badRequest.rawValue, headers, data, ResponseCode.badRequest)
                 return
             }
             
             guard let body = String(data: responseObject, encoding: .utf8) else {
-                completion(ResponseCode.badRequest.rawValue, headers, responseObject, ResponseCode.badRequest.error)
+                completion(ResponseCode.badRequest.rawValue, headers, responseObject, ResponseCode.badRequest)
                 return
             }
             
             let code = ResponseCode(stringValue: body)
-            
-            completion(code.rawValue, headers, data, code.error)
+            if code == .ok || code == .noContent {
+                completion(code.rawValue, headers, data, nil)
+            } else {
+                completion(code.rawValue, headers, data, code)
+            }
         }
     }
 }
