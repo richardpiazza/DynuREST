@@ -15,24 +15,34 @@ public class API: WebAPI {
     public var password: String = ""
     
     public convenience init(secure: Bool = true) {
-        var url = type(of: self).http
+        var path = type(of: self).http
         if secure {
-            url = type(of: self).https
+            path = type(of: self).https
         }
-        self.init(baseURL: URL(string: url), sessionDelegate: nil)
+        
+        guard let url = URL(string: path) else {
+            fatalError("Failed to initialize URL with string: \(path)")
+        }
+        
+        self.init(baseURL: url, delegate: nil)
     }
     
     public convenience init(username: String, password: String, secure: Bool = true) {
-        var url = type(of: self).http
+        var path = type(of: self).http
         if secure {
-            url = type(of: self).https
+            path = type(of: self).https
         }
-        self.init(baseURL: URL(string: url), sessionDelegate: nil)
+        
+        guard let url = URL(string: path) else {
+            fatalError("Failed to initialize URL with string: \(path)")
+        }
+        
+        self.init(baseURL: url)
         self.username = username
         self.password = password
     }
     
-    public override func request(method: WebAPI.HTTPRequestMethod, path: String, queryItems: [URLQueryItem]?, data: Data?) throws -> URLRequest {
+    public override func request(method: HTTP.RequestMethod, path: String, queryItems: [URLQueryItem]?, data: Data?) throws -> URLRequest {
         var request = try super.request(method: method, path: path, queryItems: queryItems, data: data)
         
         let userpass = "\(username):\(password)"
@@ -44,12 +54,12 @@ public class API: WebAPI {
         let base64 = data.base64EncodedString(options: [])
         let auth = "Basic \(base64)"
         
-        request.setValue(auth, forHTTPHeaderField: WebAPI.HTTPHeaderKey.Authorization)
+        request.setValue(auth, forHTTPHeaderField: HTTP.Header.authorization.rawValue)
         
         return request
     }
     
-    public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping WebAPIRequestCompletion) {
+    public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping DataTaskCompletion) {
         var queryItems = [URLQueryItem]()
         
         if ip.isIPv4 {

@@ -1,4 +1,5 @@
 import XCTest
+import CodeQuickKit
 @testable import DynuREST
 
 class APITests: XCTestCase {
@@ -6,12 +7,12 @@ class APITests: XCTestCase {
     let ipv4 = "24.7.206.125"
     let hostname = "dynurest.freeddns.org"
     
-    var ipv4OKPath: API.InjectedPath {
-        return API.InjectedPath(string: "http://api.dynu.com/nic/update?myip=\(ipv4)&hostname=\(hostname)")
+    var ipv4OKPath: InjectedPath {
+        return InjectedPath(string: "http://api.dynu.com/nic/update?myip=\(ipv4)&hostname=\(hostname)")
     }
     
-    var ipv4OKResponse: API.InjectedResponse {
-        var response = API.InjectedResponse()
+    var ipv4OKResponse: InjectedResponse {
+        var response = InjectedResponse()
         response.statusCode = 200
         response.data = "good".data(using: .utf8)
         return response

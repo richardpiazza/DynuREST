@@ -4,6 +4,20 @@
 
 A Swift library for simplifying some everyday tasks.
 
+## How to Use
+
+__CocoaPods__
+
+    pod 'CodeQuickKit', '~> 6.2'
+
+
+__Swift Package Manager__
+
+    .package(url: "https://github.com/richardpiazza/CodeQuickKit", .upToNextMinor(from: "6.2.0"))
+
+
+## Essential Classes
+
 #### Bundle.swift
 
 Extension on `Bundle` that provides first level property access to common bundle items. Also provides methods for determining class names in other modules.
@@ -27,6 +41,10 @@ Extension on `DateFormatter` that provides a static reference to common date For
 #### Downloader.swift
 
 A wrapper for URLSession similar to `WebAPI` for general purpose downloading of data and images.
+
+#### Environment.swift
+
+Reports the Platform, Architecture, and Swift version currently in use.
 
 #### FileManager.swift
 
@@ -80,4 +98,4 @@ An extension on UIAlertController that provides static methods for displaying Al
 
 #### WebAPI.swift
 
-A wrapper for `NSURLSession` for communication with REST API's.
+A wrapper for `URLSession` for communication with JSON API's.
