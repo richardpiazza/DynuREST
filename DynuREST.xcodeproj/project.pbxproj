@@ -192,7 +192,6 @@
 				E189B5AF1E857164009A63F4 /* Sources */,
 				E189B5B01E857164009A63F4 /* Frameworks */,
 				E189B5B11E857164009A63F4 /* Resources */,
-				125E7C7F09DD2533C0161F30 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -262,24 +261,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		125E7C7F09DD2533C0161F30 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-DynuRESTTests/Pods-DynuRESTTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CodeQuickKit/CodeQuickKit.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodeQuickKit.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DynuRESTTests/Pods-DynuRESTTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		254EEF5E9EE6940D204FABB3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

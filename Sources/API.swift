@@ -11,9 +11,6 @@ public class API: WebAPI {
     private static var http = "http://api.dynu.com"
     private static var https = "https://api.dynu.com"
     
-    public var username: String = ""
-    public var password: String = ""
-    
     public convenience init(secure: Bool = true) {
         var path = type(of: self).http
         if secure {
@@ -24,7 +21,7 @@ public class API: WebAPI {
             fatalError("Failed to initialize URL with string: \(path)")
         }
         
-        self.init(baseURL: url, delegate: nil)
+        self.init(baseURL: url)
     }
     
     public convenience init(username: String, password: String, secure: Bool = true) {
@@ -38,28 +35,10 @@ public class API: WebAPI {
         }
         
         self.init(baseURL: url)
-        self.username = username
-        self.password = password
+        self.authorization = HTTP.Authorization.basic(username: username, password: password)
     }
     
-    public override func request(method: HTTP.RequestMethod, path: String, queryItems: [URLQueryItem]?, data: Data?) throws -> URLRequest {
-        var request = try super.request(method: method, path: path, queryItems: queryItems, data: data)
-        
-        let userpass = "\(username):\(password)"
-        
-        guard let data = userpass.data(using: String.Encoding.utf8, allowLossyConversion: true) else {
-            throw ResponseCode.unauthorized
-        }
-        
-        let base64 = data.base64EncodedString(options: [])
-        let auth = "Basic \(base64)"
-        
-        request.setValue(auth, forHTTPHeaderField: HTTP.Header.authorization.rawValue)
-        
-        return request
-    }
-    
-    public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping DataTaskCompletion) {
+    public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping HTTP.DataTaskCompletion) {
         var queryItems = [URLQueryItem]()
         
         if ip.isIPv4 {
