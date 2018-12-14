@@ -4,14 +4,18 @@ import CodeQuickKit
 /// API
 /// Provides a wrapper around CodeQuickKit.WebAPI that expands for a username/password credential
 /// combination. The `update()` function will execute the query and parse the `ResponseCode` returned.
-public class API: WebAPI {
+public class API: HTTPClient {
     public static var shared: API = API()
     public static var insecure: API = API(secure: false)
     
     private static var http = "http://api.dynu.com"
     private static var https = "https://api.dynu.com"
     
-    public convenience init(secure: Bool = true) {
+    public var baseURL: URL
+    public var session: URLSession
+    public var authorization: HTTP.Authorization?
+    
+    private init(secure: Bool = true) {
         var path = type(of: self).http
         if secure {
             path = type(of: self).https
@@ -21,23 +25,13 @@ public class API: WebAPI {
             fatalError("Failed to initialize URL with string: \(path)")
         }
         
-        self.init(baseURL: url)
+        baseURL = url
+        session = URLSession(configuration: URLSessionConfiguration.default)
     }
-    
-    public convenience init(username: String, password: String, secure: Bool = true) {
-        var path = type(of: self).http
-        if secure {
-            path = type(of: self).https
-        }
-        
-        guard let url = URL(string: path) else {
-            fatalError("Failed to initialize URL with string: \(path)")
-        }
-        
-        self.init(baseURL: url)
-        self.authorization = HTTP.Authorization.basic(username: username, password: password)
-    }
-    
+}
+
+public extension HTTPClient {
+    ///
     public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping HTTP.DataTaskCompletion) {
         var queryItems = [URLQueryItem]()
         

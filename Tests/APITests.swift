@@ -18,14 +18,16 @@ class APITests: XCTestCase {
         return response
     }
     
+    fileprivate var insecureAPI = InsecureAPI()
+    
     override func setUp() {
         super.setUp()
         
-        API.insecure.injectedResponses[ipv4OKPath] = ipv4OKResponse
+        insecureAPI.injectedResponses[ipv4OKPath] = ipv4OKResponse
     }
     
     override func tearDown() {
-        API.insecure.injectedResponses[ipv4OKPath] = nil
+        insecureAPI.injectedResponses[ipv4OKPath] = nil
         
         super.tearDown()
     }
@@ -33,7 +35,7 @@ class APITests: XCTestCase {
     func testIPv4OK() {
         let exp = self.expectation(description: "ipv4")
         
-        API.insecure.update(ip: ipv4, hostname: hostname, location: nil) { (statusCode, headers, data, error) in
+        insecureAPI.update(ip: ipv4, hostname: hostname, location: nil) { (statusCode, headers, data, error) in
             guard statusCode == 200 else {
                 XCTFail()
                 return
@@ -48,5 +50,20 @@ class APITests: XCTestCase {
                 XCTFail()
             }
         }
+    }
+}
+
+private struct InsecureAPI: HTTPClient, HTTPInjectable {
+    var baseURL: URL
+    var session: URLSession
+    var authorization: HTTP.Authorization?
+    var injectedResponses: [InjectedPath : InjectedResponse] = [:]
+    
+    init() {
+        guard let url = URL(string: "http://api.dynu.com/") else {
+            fatalError()
+        }
+        baseURL = url
+        session = URLSession(configuration: URLSessionConfiguration.default)
     }
 }
