@@ -4,6 +4,19 @@
 
 Face it... a REST API that responds in only text doesn't feel very modern. DynuREST translates the text responses from the Dynu.com IP Update API into propery HTTP status codes and meaningful errors.
 
+## Installation
+
+__CocoaPods__
+
+pod 'DynuRest', '~> 1.3'
+
+
+__Swift Package Manager__
+
+.package(url: "https://github.com/richardpiazza/DynuREST", .upToNextMinor(from: "1.3.0"))
+
+## Usage
+
 #### API.swift
 
 Provides a wrapper around CodeQuickKit.WebAPI that expands for a username/password credential combination. The `update()` function will execute the query and parse the `ResponseCode` returned.
