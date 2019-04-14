@@ -6,7 +6,7 @@ target 'DynuREST' do
   use_frameworks!
 
   # Pods for DynuREST
-  pod 'CodeQuickKit', '~>6.4'
+  pod 'CodeQuickKit', '~>6.5'
 
   target 'DynuRESTTests' do
     inherit! :search_paths

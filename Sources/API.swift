@@ -32,7 +32,7 @@ public class API: HTTPClient {
 
 public extension HTTPClient {
     ///
-    public func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping HTTP.DataTaskCompletion) {
+    func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping HTTP.DataTaskCompletion) {
         var queryItems = [URLQueryItem]()
         
         if ip.isIPv4 {

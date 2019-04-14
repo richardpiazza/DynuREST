@@ -1,16 +1,16 @@
 PODS:
-  - CodeQuickKit (6.4.0)
+  - CodeQuickKit (6.5.0)
 
 DEPENDENCIES:
-  - CodeQuickKit (~> 6.4)
+  - CodeQuickKit (~> 6.5)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - CodeQuickKit
 
 SPEC CHECKSUMS:
-  CodeQuickKit: 85b46733c5326452a58fe90d6238fac0de0c5028
+  CodeQuickKit: 6f1ee4051dcffa1b5cd8d59bfbc28c222b694d43
 
-PODFILE CHECKSUM: 4c03afb39f9a9b607869cc1b63e104ae14e31535
+PODFILE CHECKSUM: a9f54a5b5107aa668873c7fbfd71cd4431aa44ee
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.6.0
