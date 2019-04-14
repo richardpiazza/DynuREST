@@ -14,8 +14,9 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/richardpiazza/DynuREST.git", :tag => s.version.to_s }
   s.source_files = 'Sources/*'
   s.requires_arc = true
+  s.swift_version = '5.0'
   s.platforms = { :osx => '10.13', :ios => '11.0', :tvos => '11.0', :watchos => '4.0' }
   s.frameworks = 'Foundation'
-  s.dependency 'CodeQuickKit', '~> 6.4'
+  s.dependency 'CodeQuickKit', '~> 6.5'
 
 end
