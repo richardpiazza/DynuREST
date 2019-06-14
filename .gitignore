@@ -37,6 +37,9 @@ playground.xcworkspace
 # Packages/
 .build/
 Package.resolved
+.swiftpm/
+DynuREST.xcodeproj/
+DynuREST.xcodeproj/*
 
 # CocoaPods
 #

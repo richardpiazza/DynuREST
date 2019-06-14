@@ -6,14 +6,10 @@ Face it... a REST API that responds in only text doesn't feel very modern. DynuR
 
 ## Installation
 
-__CocoaPods__
-
-pod 'DynuRest', '~> 1.3'
-
 
 __Swift Package Manager__
 
-.package(url: "https://github.com/richardpiazza/DynuREST", .upToNextMinor(from: "1.3.0"))
+.package(url: "https://github.com/richardpiazza/DynuREST", .upToNextMinor(from: "2.0.0"))
 
 ## Usage
 
