@@ -1,5 +1,5 @@
 import XCTest
-import CodeQuickKit
+import SessionPlus
 @testable import DynuREST
 
 class APITests: XCTestCase {

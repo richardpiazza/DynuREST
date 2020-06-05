@@ -1,9 +1,7 @@
 import Foundation
-import CodeQuickKit
+import SessionPlus
 
-/// API
-/// Provides a wrapper around CodeQuickKit.WebAPI that expands for a username/password credential
-/// combination. The `update()` function will execute the query and parse the `ResponseCode` returned.
+/// An implementation of the `SessionPlus.HTTPClient` that is configured for the Dynu.com API.
 public class API: HTTPClient {
     public static var shared: API = API()
     public static var insecure: API = API(secure: false)
@@ -31,7 +29,7 @@ public class API: HTTPClient {
 }
 
 public extension HTTPClient {
-    ///
+    /// Execute the query and parses the `ResponseCode` returned.
     func update(ip: String, hostname: String? = nil, location: String? = nil, completion: @escaping HTTP.DataTaskCompletion) {
         var queryItems = [URLQueryItem]()
         
@@ -40,7 +38,7 @@ public extension HTTPClient {
         } else if ip.isIPv6 {
             queryItems.append(URLQueryItem(name: "myipv6", value: ip))
         } else {
-            Log.warn("IP Address was not IPv4 nor IPv6")
+            print("IP Address was not IPv4 nor IPv6")
             completion(ResponseCode.badRequest.rawValue, nil, nil, ResponseCode.badRequest)
             return
         }
