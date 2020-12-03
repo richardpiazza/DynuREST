@@ -1,5 +1,8 @@
 import Foundation
 import SessionPlus
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// An implementation of the `SessionPlus.HTTPClient` that is configured for the Dynu.com API.
 public class API: HTTPClient {
