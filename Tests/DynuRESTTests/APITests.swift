@@ -1,6 +1,9 @@
 import XCTest
 import SessionPlus
 @testable import DynuREST
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 class APITests: XCTestCase {
 
