@@ -15,7 +15,7 @@ let package = Package(
         .library(name: "DynuREST", targets: ["DynuREST"])
     ],
     dependencies: [
-        .package(url: "https://github.com/richardpiazza/SessionPlus.git", from: "1.0.0-rc.1")
+        .package(url: "https://github.com/richardpiazza/SessionPlus.git", .upToNextMinor(from: "1.0.0"))
     ],
     targets: [
         .target(name: "DynuREST", dependencies: ["SessionPlus"], path: "Sources"),
