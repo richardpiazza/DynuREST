@@ -4,6 +4,10 @@ import SessionPlus
 
 class APITests: XCTestCase {
 
+    static var allTests = [
+        ("testIPv4OK", testIPv4OK),
+    ]
+    
     let ipv4 = "24.7.206.125"
     let hostname = "dynurest.freeddns.org"
     

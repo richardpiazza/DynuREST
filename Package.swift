@@ -18,8 +18,14 @@ let package = Package(
         .package(url: "https://github.com/richardpiazza/SessionPlus.git", .upToNextMinor(from: "1.0.0"))
     ],
     targets: [
-        .target(name: "DynuREST", dependencies: ["SessionPlus"], path: "Sources"),
-        .testTarget(name: "DynuRESTTests", dependencies: ["DynuREST"], path: "Tests")
+        .target(
+            name: "DynuREST",
+            dependencies: ["SessionPlus"]
+        ),
+        .testTarget(
+            name: "DynuRESTTests",
+            dependencies: ["DynuREST"]
+        )
     ],
     swiftLanguageVersions: [.v5]
 )
