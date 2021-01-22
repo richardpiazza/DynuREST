@@ -52,17 +52,17 @@ extension IPAddress: Codable {
 
 public extension IPAddress {
     /// Retrieves an IPv4 address from IPify.org
-    func getIPv4(_ completion: @escaping IPResult) {
+    static func getIPv4(_ completion: @escaping IPResult) {
         IPSource.ipify.ipAddress(completion)
     }
     
     /// Retrieves an IPv6 address from IFConfig.co
-    func getIPv6(_ completion: @escaping IPResult) {
+    static func getIPv6(_ completion: @escaping IPResult) {
         IPSource.ifconfig.ipAddress(completion)
     }
     
     /// Retrieves the first available IP address (v4 first).
-    func getIP(_ completion: @escaping (Result<IPAddress, IPSource.Error>) -> Void) {
+    static func getIP(_ completion: @escaping (Result<IPAddress, IPSource.Error>) -> Void) {
         IPSource.ipify.ipAddress { (ipv4) in
             switch ipv4 {
             case .success(let address):
