@@ -9,7 +9,7 @@ public typealias API = DynuAPI
 
 /// An implementation of the `SessionPlus.HTTPClient` that is configured for the Dynu.com API.
 public class DynuAPI: HTTPClient {
-    public static let shared: DynuAPI = DynuAPI()
+    public static var shared: DynuAPI = DynuAPI()
     @available(*, deprecated, message: "Only secure API should be used")
     public static let insecure: DynuAPI = DynuAPI(secure: false)
     
@@ -28,6 +28,8 @@ public class DynuAPI: HTTPClient {
 
 public extension HTTPClient {
     /// Perform an update against the Dynu IP Updater API.
+    ///
+    /// The credentials passed will override the instances `authorization` property.
     ///
     /// - parameter currentAddress:
     /// - parameter username:

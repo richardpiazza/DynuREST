@@ -66,7 +66,7 @@ extension IPSource: HTTPClient {
             }
             
             guard statusCode == 200 else {
-                completion(.failure(.statusCode(200)))
+                completion(.failure(.statusCode(statusCode)))
                 return
             }
             
