@@ -16,12 +16,20 @@ final class IPAddressTests: XCTestCase {
     
     func testIPv4() throws {
         let address = try XCTUnwrap(IPAddress(rawValue: "24.7.206.125"))
-        XCTAssertEqual(address.rawValue, "24.7.206.125")
+        XCTAssertTrue(address.isIPv4)
+        XCTAssertFalse(address.isIPv6)
+        
+        let invalidAddress = IPAddress(rawValue: "24.256.33.111")
+        XCTAssertNil(invalidAddress)
     }
     
     func testIPv6() throws {
         let address = try XCTUnwrap(IPAddress(rawValue: "fdfe:1357:2dc9:2:c95:6e09:21b7:5110"))
-        XCTAssertEqual(address.rawValue, "fdfe:1357:2dc9:2:c95:6e09:21b7:5110")
+        XCTAssertTrue(address.isIPv6)
+        XCTAssertFalse(address.isIPv4)
+        
+        let invalidAddress = IPAddress(rawValue: "2601.445:8001:d039:39d8.8bdc:a99:40a5")
+        XCTAssertNil(invalidAddress)
     }
     
     func testEncode() throws {
