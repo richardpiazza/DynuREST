@@ -3,7 +3,7 @@ import Foundation
 /// Dynu.com API Response Codes
 ///
 /// A representation of the status codes that should be returned from the Dynu.com API.
-/// Use the init(stringValue:) with the test response to parse the correct response.
+/// Use the `init(stringValue:)` with the test response to parse the correct response.
 public enum ResponseCode: Int, Error {
     case ok = 200
     case noContent = 204

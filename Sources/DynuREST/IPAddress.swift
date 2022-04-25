@@ -1,6 +1,6 @@
 import Foundation
 
-public struct IPAddress: RawRepresentable {
+public struct IPAddress: RawRepresentable, Codable {
     
     public enum Version: String, CaseIterable {
         case IPv4 = "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
@@ -47,9 +47,23 @@ extension IPAddress: CustomStringConvertible {
     }
 }
 
-extension IPAddress: Codable {
+public extension IPAddress {
+    /// Retrieves address information from all the provided sources.
+    static func requestFromSources(_ sources: [IPProvider]) async -> [IPAddress] {
+        var addresses: [IPAddress] = []
+        for source in sources {
+            do {
+                let address = try await source.ipAddress()
+                addresses.append(address)
+            } catch {
+                print(error)
+            }
+        }
+        return addresses
+    }
 }
 
+@available(*, deprecated)
 public extension IPAddress {
     /// Retrieves an IPv4 address from IPify.org
     static func getIPv4(_ completion: @escaping IPResult) {
@@ -62,7 +76,7 @@ public extension IPAddress {
     }
     
     /// Retrieves the first available IP address (v4 first).
-    static func getIP(_ completion: @escaping (Result<IPAddress, IPSource.Error>) -> Void) {
+    static func getIP(_ completion: @escaping (Result<IPAddress, DynuRESTError>) -> Void) {
         IPSource.ipify.ipAddress { (ipv4) in
             switch ipv4 {
             case .success(let address):

@@ -8,6 +8,7 @@ import FoundationNetworking
 public typealias API = DynuAPI
 
 /// An implementation of the `SessionPlus.HTTPClient` that is configured for the Dynu.com API.
+@available(*, deprecated, renamed: "DynuClient")
 public class DynuAPI: HTTPClient {
     public static var shared: DynuAPI = DynuAPI()
     @available(*, deprecated, message: "Only secure API should be used")
@@ -18,7 +19,7 @@ public class DynuAPI: HTTPClient {
     
     public var baseURL: URL
     public var session: URLSession
-    public var authorization: HTTP.Authorization?
+    public var authorization: Authorization?
     
     private init(secure: Bool = true) {
         baseURL = secure ? Self.https : Self.http
@@ -26,6 +27,7 @@ public class DynuAPI: HTTPClient {
     }
 }
 
+@available(*, deprecated)
 public extension HTTPClient {
     /// Perform an update against the Dynu IP Updater API.
     ///
@@ -37,6 +39,7 @@ public extension HTTPClient {
     /// - parameter hostname:
     /// - parameter group:
     /// - parameter completion:
+    @available(*, deprecated, message: "DynuClient.updateAddress(:using:hostname:group:)")
     mutating func update(address: IPAddress, username: String, password: String, hostname: String?, group: String?, completion: @escaping (ResponseCode) -> Void) {
         guard !username.isEmpty && !password.isEmpty else {
             completion(.unauthorized)

@@ -4,19 +4,16 @@ import SessionPlus
 import FoundationNetworking
 #endif
 
-public typealias IPResult = (Result<IPAddress, IPSource.Error>) -> Void
+public protocol IPProvider {
+    func ipAddress() async throws -> IPAddress
+}
+
+public typealias IPResult = (Result<IPAddress, DynuRESTError>) -> Void
 
 public enum IPSource: String {
-    public enum Error: Swift.Error {
-        case requestError(Swift.Error)
-        case statusCode(Int)
-        case response
-        case format(String)
-    }
-    
     /// A Simple Public IP Address API
     ///
-    /// Used for IPv4 Loopkup
+    /// Used for IPv4 Lookup
     case ipify = "IPify.org"
     /// "The best tool to find your own IP address, and information about it."
     ///
@@ -36,8 +33,8 @@ public enum IPSource: String {
         set {}
     }
     
-    private static var _authorization: HTTP.Authorization? = nil
-    public var authorization: HTTP.Authorization? {
+    private static var _authorization: Authorization? = nil
+    public var authorization: Authorization? {
         get { Self._authorization }
         set { Self._authorization = newValue }
     }
@@ -57,6 +54,7 @@ public enum IPSource: String {
     }
 }
 
+@available(*, deprecated)
 extension IPSource: HTTPClient {
     public func ipAddress(_ completion: @escaping IPResult) {
         get(path, queryItems: queryItems) { (statusCode, headers, data, error) in
