@@ -11,7 +11,7 @@ A Dynu.com IP Update API wrapper.
 </p>
 
 Face it... a REST API that responds in only text doesn't feel very modern. DynuREST translates the text responses from the Dynu.com IP 
-Update API into propery HTTP status codes and meaningful errors.
+Update API into proper HTTP status codes and meaningful errors.
 
 ## Installation
 
@@ -36,49 +36,27 @@ import DynuREST
 
 ## Usage
 
-The `API` class provides two default implementations: `shared` & `insecure`. They target the **https** and **http** schemes respectively.
-
-Setting authentication information is done using the `HTTP.Authorization` enum:
+The `DynuIPUpdater` shared instance allows for sending IP information to the Dynu.com API.
 
 ```swift
-let username: String = ""
-let password: String = ""
-API.shared.authorization = .basic(username: username, password: password)
+let address = IPAddress.ipV4("X.X.X.X")
+let response = try await DynuIPUpdater.shared.updateAddress(address, using: .basic("username", "password"))
 ```
 
-The `update()` function will execute the query and parse the `ResponseCode` returned.
+IP address information can be obtained through any means, but **DynuREST** has two built-in providers:
+* `IPifyClient.shared`
+* `IFConfigClient.shared`
 
+These both implement the `IPSource` protocol:
 ```swift
-API.shared.update(ip: "127.0.0.1") { (statusCode, headers, data, error) in
-    guard error == nil else {
-        // Process Error
-        return
-    }
-
-    guard statusCode < 300 else {
-        // Non-OK response
-        return
-    }
-
-    // All good
+public protocol IPSource {
+    func ipAddress() async throws -> IPAddress
 }
 ```
 
-### Insecure Use
+---
 
-The previous version of the api.dynu.com SSL Certificate did not work with iOS11.0+ and macOS10.13+. 
-In order to use an insecure connection, your app must explicitly bypass App Transport Security in your Info.plist.
-
-```xml
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSExceptionDomains</key>
-    <dict>
-        <key>api.dynu.com</key>
-        <dict>
-            <key>NSExceptionAllowsInsecureHTTPLoads</key>
-            <true/>
-        </dict>
-    </dict>
-</dict>
+`DynuIPUpdater` also contains a helper method which will automatically retrieve IP information from the built-in sources.
+```swift
+func requestIP(_ sources: [IPSource]) async -> [IPAddress]
 ```

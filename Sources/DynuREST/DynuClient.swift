@@ -16,11 +16,11 @@ public extension DynuClient {
     func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String? = nil, group: String? = nil) async throws -> ResponseCode {
         var queryItems: [URLQueryItem] = []
         
-        switch address.version {
-        case .IPv4:
-            queryItems.append(URLQueryItem(name: "myip", value: address.rawValue))
-        case .IPv6:
-            queryItems.append(URLQueryItem(name: "myipv6", value: address.rawValue))
+        switch address {
+        case .ipV4(let value):
+            queryItems.append(URLQueryItem(name: "myip", value: value))
+        case .ipV6(let value):
+            queryItems.append(URLQueryItem(name: "myipv6", value: value))
         }
         
         if let hostname = hostname, !hostname.isEmpty {
@@ -33,7 +33,8 @@ public extension DynuClient {
         
         let request = AnyRequest(path: "nic/update", queryItems: queryItems)
         let authorizedRequest = request.authorized(authorization)
-        let response: String = try await performRequest(authorizedRequest)
-        return ResponseCode(stringValue: response)
+        let response = try await performRequest(authorizedRequest)
+        let value = String(data: response.data, encoding: .utf8) ?? ""
+        return ResponseCode(stringValue: value)
     }
 }

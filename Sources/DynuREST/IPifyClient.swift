@@ -7,10 +7,10 @@ import FoundationNetworking
 /// A Simple Public IP Address API
 ///
 /// Used for IPv4 Lookup
-public class IPIfyClient: URLSessionClient, IPProvider {
+public class IPIfyClient: URLSessionClient, IPSource {
     
     private struct IPResponse: Decodable {
-        let ip: String
+        let ip: IPAddress
     }
     
     public static var shared: IPIfyClient = .init()
@@ -22,9 +22,6 @@ public class IPIfyClient: URLSessionClient, IPProvider {
     public func ipAddress() async throws -> IPAddress {
         let request = AnyRequest(queryItems: [URLQueryItem(name: "format", value: "json")])
         let response: IPResponse = try await performRequest(request)
-        guard let address = IPAddress(rawValue: response.ip) else {
-            throw DynuRESTError.format(response.ip)
-        }
-        return address
+        return response.ip
     }
 }

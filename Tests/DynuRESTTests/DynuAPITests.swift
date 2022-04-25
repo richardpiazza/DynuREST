@@ -8,8 +8,8 @@ import FoundationNetworking
 
 final class DynuAPITests: XCTestCase {
     
-    private let addressV4 = IPAddress(rawValue: "24.7.206.125")!
-    private let addressV6 = IPAddress(rawValue: "2601:445:8400:42f:517e:7782:4650:9367")!
+    private let addressV4 = IPAddress.ipV4("24.7.206.125")
+    private let addressV6 = IPAddress.ipV6("2601:445:8400:42f:517e:7782:4650:9367")
     private let username = "bob"
     private let password = "secret"
     private let hostname = "dynurest.freeddns.org"
@@ -25,9 +25,19 @@ final class DynuAPITests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        client = EmulatedDynuClient(responseCache: [
-            "https://api.dynu.com/nic/update?myip=\(addressV4)&hostname=\(hostname)": .success(okResponse),
-            "https://api.dynu.com/nic/update?myipv6=\(addressV6)&hostname=\(hostname)": .success(okResponse)
+        let v4Request = AnyRequest(path: "nic/update", queryItems: [
+            URLQueryItem(name: "myip", value: addressV4.description),
+            URLQueryItem(name: "hostname", value: hostname),
+        ])
+        
+        let v6Request = AnyRequest(path: "nic/update", queryItems: [
+            URLQueryItem(name: "myipv6", value: addressV6.description),
+            URLQueryItem(name: "hostname", value: hostname),
+        ])
+        
+        client = EmulatedDynuClient(requestResponse: [
+            (v4Request, okResponse),
+            (v6Request, okResponse)
         ])
     }
     
