@@ -35,11 +35,11 @@ final class IPAddressTests: XCTestCase {
         let address = IPAddress.ipV4("73.24.13.58")
         let data = try JSONEncoder().encode(address)
         let json = try XCTUnwrap(String(data: data, encoding: .utf8))
-        XCTAssertEqual(json, "{\"ip\":\"73.24.13.58\"}")
+        XCTAssertEqual(json, "\"73.24.13.58\"")
     }
     
     func testDecode() throws {
-        let json = "{\"ip\":\"2601:445:8400:42f:517e:7782:4650:9367\"}"
+        let json = "\"2601:445:8400:42f:517e:7782:4650:9367\""
         let data = try XCTUnwrap(json.data(using: .utf8))
         let address = try JSONDecoder().decode(IPAddress.self, from: data)
         if case .ipV4 = address {
