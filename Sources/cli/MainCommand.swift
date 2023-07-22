@@ -10,7 +10,7 @@ import ArgumentParser
             discussion: "",
             version: "1.0",
             shouldDisplay: true,
-            subcommands: [IPCommand.self],
+            subcommands: [IPCommand.self, UpdateCommand.self],
             defaultSubcommand: nil,
             helpNames: .shortAndLong
         )
@@ -26,7 +26,7 @@ struct MainCommand: AsyncParsableCommand {
             discussion: "",
             version: "1.0",
             shouldDisplay: true,
-            subcommands: [IPCommand.self],
+            subcommands: [IPCommand.self, UpdateCommand.self],
             defaultSubcommand: nil,
             helpNames: .shortAndLong
         )

@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 import SessionPlus
 
 public protocol DynuClient: Client {
@@ -23,16 +26,26 @@ public extension DynuClient {
             queryItems.append(URLQueryItem(name: "myipv6", value: value))
         }
         
-        if let hostname = hostname, !hostname.isEmpty {
-            queryItems.append(URLQueryItem(name: "hostname", value: hostname))
-        }
-        
-        if let group = group, !group.isEmpty {
-            queryItems.append(URLQueryItem(name: "location", value: group))
+        switch (group, hostname) {
+        case (.some(let location), _):
+            queryItems.append(URLQueryItem(name: "location", value: location))
+        case (.none, .some(let hosts)):
+            queryItems.append(URLQueryItem(name: "hostname", value: hosts))
+        case (.none, .none):
+            switch authorization {
+            case .basic(let username, _):
+                queryItems.append(URLQueryItem(name: "username", value: username))
+            default:
+                break
+            }
         }
         
         let request = AnyRequest(path: "nic/update", queryItems: queryItems)
         let authorizedRequest = request.authorized(authorization)
+        
+        let url = (try? URLRequest(request: authorizedRequest).url?.absoluteString) ?? ""
+        print(url)
+        
         let response = try await performRequest(authorizedRequest)
         let value = String(data: response.data, encoding: .utf8) ?? ""
         return ResponseCode(stringValue: value)

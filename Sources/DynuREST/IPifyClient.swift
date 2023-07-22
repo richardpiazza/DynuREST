@@ -7,7 +7,7 @@ import FoundationNetworking
 /// A Simple Public IP Address API
 ///
 /// Used for IPv4 Lookup
-public class IPIfyClient: URLSessionClient, IPSource {
+public class IPIfyClient: BaseURLSessionClient, IPSource {
     
     private struct IPResponse: Decodable {
         let ip: IPAddress

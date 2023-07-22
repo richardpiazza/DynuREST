@@ -6,18 +6,18 @@ import PackageDescription
 let package = Package(
     name: "DynuREST",
     platforms: [
-        .macOS(.v10_15),
-        .iOS(.v13),
-        .tvOS(.v13),
-        .watchOS(.v6),
+        .macOS(.v12),
+        .iOS(.v15),
+        .tvOS(.v15),
+        .watchOS(.v8),
     ],
     products: [
         .library(name: "DynuREST", targets: ["DynuREST"]),
         .executable(name: "dynu", targets: ["cli"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/richardpiazza/SessionPlus.git", .upToNextMajor(from: "2.0.1")),
-        .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.1.1")),
+        .package(url: "https://github.com/richardpiazza/SessionPlus.git", .upToNextMajor(from: "2.2.0")),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
     ],
     targets: [
         .executableTarget(
