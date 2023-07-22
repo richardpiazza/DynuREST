@@ -7,7 +7,7 @@ import FoundationNetworking
 /// IFConfig.co: "The best tool to find your own IP address, and information about it."
 ///
 /// Used for IPv6 Lookup
-public class IFConfigClient: URLSessionClient, IPSource {
+public class IFConfigClient: BaseURLSessionClient, IPSource {
     
     /// Response received from the IP api
     ///

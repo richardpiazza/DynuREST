@@ -4,7 +4,7 @@ import SessionPlus
 import FoundationNetworking
 #endif
 
-public final class DynuIPUpdater: URLSessionClient, DynuClient {
+public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
     
     public static var shared: DynuIPUpdater = .init()
     
