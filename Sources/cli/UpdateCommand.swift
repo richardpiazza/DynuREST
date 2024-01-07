@@ -33,6 +33,9 @@ struct UpdateCommand: AsyncParsableCommand {
     @Option(help: "Collection of hostnames to update. (Comma separated.)")
     var hostname: String?
     
+    @Flag(help: "Prefer IPv6 addresses (Trusted Global Unicast first).")
+    var v6: Bool = false
+    
     func run() async throws {
         guard !username.isEmpty && !password.isEmpty else {
             throw ValidationError("Credentials must be supplied")
@@ -40,7 +43,7 @@ struct UpdateCommand: AsyncParsableCommand {
         
         let authorization = Authorization.basic(username: username, password: password)
         
-        let addresses = await DynuIPUpdater.shared.requestIP()
+        let addresses = await DynuIPUpdater.shared.requestIP(preferIPv6: v6)
         guard let address = addresses.first else {
             throw ValidationError("Failed to retrieve IP Address")
         }

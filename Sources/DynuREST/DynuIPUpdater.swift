@@ -8,12 +8,53 @@ public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
     
     public static var shared: DynuIPUpdater = .init()
     
+    /// Default sources for `IPAddress` lookup.
+    ///
+    /// This order prefers IPv4 before IPv6
+    public static let sources: [IPSource] = [
+        IPIfyClient.shared,
+        IFConfigClient.shared,
+        IFConfigCommand.shared
+    ]
+    
     private init() {
         super.init(baseURL: .dynuAPI)
     }
     
     /// Retrieves address information from all the provided sources.
-    public func requestIP(_ sources: [IPSource] = [IPIfyClient.shared, IFConfigClient.shared]) async -> [IPAddress] {
+    @available(*, deprecated, renamed: "requestIP(from:)")
+    public func requestIP(_ sources: [IPSource] = [IPIfyClient.shared, IFConfigClient.shared, IFConfigCommand.shared]) async -> [IPAddress] {
+        var addresses: [IPAddress] = []
+        for source in sources {
+            do {
+                let address = try await source.ipAddress()
+                addresses.append(address)
+            } catch {
+                print(error)
+            }
+        }
+        return addresses
+    }
+    
+    /// Retrieves a collection of `IPAddress` using the _default_ sources.
+    ///
+    /// - parameters:
+    ///   - preferIPv6: When true, the source collection will order IPv6 providers first.
+    /// - returns: Collection of available `IPAddress` as provided by the default sources.
+    public func requestIP(preferIPv6: Bool) async -> [IPAddress] {
+        if preferIPv6 {
+            return await requestIP(from: DynuIPUpdater.sources.reversed())
+        } else {
+            return await requestIP(from: DynuIPUpdater.sources)
+        }
+    }
+    
+    /// Retrieves a collection of `IPAddress`.
+    ///
+    /// - parameters:
+    ///   - sources: The collection of `IPSource` which should be queried for addresses.
+    /// - returns: Collection of available `IPAddress` as provided by the `sources`.
+    public func requestIP(from sources: [IPSource]) async -> [IPAddress] {
         var addresses: [IPAddress] = []
         for source in sources {
             do {

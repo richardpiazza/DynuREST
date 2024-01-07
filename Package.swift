@@ -18,6 +18,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/richardpiazza/SessionPlus.git", .upToNextMajor(from: "2.2.0")),
         .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
+        .package(url: "https://github.com/johnsundell/ShellOut.git", from: "2.3.0")
     ],
     targets: [
         .executableTarget(
@@ -29,7 +30,10 @@ let package = Package(
         ),
         .target(
             name: "DynuREST",
-            dependencies: ["SessionPlus"]
+            dependencies: [
+                "SessionPlus",
+                "ShellOut"
+            ]
         ),
         .testTarget(
             name: "DynuRESTTests",
