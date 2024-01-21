@@ -1,6 +1,6 @@
 import Foundation
 
-public enum IPAddress: Codable {
+public enum IPAddress: Equatable, Codable {
     case ipV4(String)
     case ipV6(String)
     
@@ -58,6 +58,20 @@ extension IPAddress: CustomStringConvertible {
         switch self {
         case .ipV4(let address), .ipV6(let address):
             return address
+        }
+    }
+    
+    public var isIPv4: Bool {
+        switch self {
+        case .ipV4: return true
+        default: return false
+        }
+    }
+    
+    public var isIPv6: Bool {
+        switch self {
+        case .ipV6: return true
+        default: return false
         }
     }
 }
