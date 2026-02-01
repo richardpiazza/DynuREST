@@ -20,7 +20,9 @@ struct IPCommand: AsyncParsableCommand {
     enum Source: String, ExpressibleByArgument {
         case ipifyApi
         case ifconfigApi
+        #if os(macOS)
         case ifconfigCommand
+        #endif
 
         @available(*, deprecated, renamed: "ipifyApi")
         static var ipify: Self { ipifyApi }
@@ -40,9 +42,11 @@ struct IPCommand: AsyncParsableCommand {
         case .ifconfigApi:
             let address = try await IFConfigClient.shared.ipAddress()
             print(address.description)
+        #if os(macOS)
         case .ifconfigCommand:
             let address = try await IFConfigCommand.shared.ipAddress()
             print(address.description)
+        #endif
         }
     }
 }

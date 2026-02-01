@@ -1,7 +1,5 @@
+#if os(macOS)
 import Foundation
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 import SessionPlus
 import ShellOut
 
@@ -24,3 +22,4 @@ public class IFConfigCommand: IPSource {
         return address
     }
 }
+#endif
