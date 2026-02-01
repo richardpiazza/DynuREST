@@ -35,7 +35,7 @@ let package = Package(
             name: "DynuREST",
             dependencies: [
                 "SessionPlus",
-                "ShellOut",
+                .product(name: "ShellOut", package: "ShellOut", condition: .when(platforms: [.macOS])),
             ]
         ),
         .testTarget(

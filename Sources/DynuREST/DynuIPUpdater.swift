@@ -11,11 +11,16 @@ public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
     /// Default sources for `IPAddress` lookup.
     ///
     /// This order prefers IPv4 before IPv6
-    public static let sources: [IPSource] = [
-        IPIfyClient.shared,
-        IFConfigClient.shared,
-        IFConfigCommand.shared,
-    ]
+    public static var sources: [IPSource] {
+        var ipSources: [IPSource] = [
+            IPIfyClient.shared,
+            IFConfigClient.shared,
+        ]
+        #if os(macOS)
+        ipSources.append(IFConfigCommand.shared)
+        #endif
+        return ipSources
+    }
 
     private init() {
         super.init(baseURL: .dynuAPI)
@@ -23,7 +28,7 @@ public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
 
     /// Retrieves address information from all the provided sources.
     @available(*, deprecated, renamed: "requestIP(from:)")
-    public func requestIP(_ sources: [IPSource] = [IPIfyClient.shared, IFConfigClient.shared, IFConfigCommand.shared]) async -> [IPAddress] {
+    public func requestIP(_ sources: [IPSource] = DynuIPUpdater.sources) async -> [IPAddress] {
         var addresses: [IPAddress] = []
         for source in sources {
             do {
