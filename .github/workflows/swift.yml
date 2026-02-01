@@ -41,3 +41,8 @@ jobs:
 
     - name: Test
       run: swift test
+
+    - name: Lint
+      if: ${{ runner.os == 'macOS' }}
+      shell: bash
+      run: swiftformat --lint . --reporter github-actions-log
