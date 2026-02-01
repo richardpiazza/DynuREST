@@ -16,7 +16,7 @@ final class DynuAPITests: XCTestCase {
     private var client: DynuClient!
 
     private var okResponse: Response {
-        AnyResponse(statusCode: .ok, headers: .init(), data: "good".data(using: .utf8)!)
+        AnyResponse(statusCode: .ok, headers: .init(), body: "good".data(using: .utf8)!)
     }
 
     private class EmulatedDynuClient: EmulatedClient, DynuClient {}
@@ -25,13 +25,13 @@ final class DynuAPITests: XCTestCase {
         super.setUp()
 
         let v4Request = AnyRequest(path: "nic/update", queryItems: [
-            URLQueryItem(name: "myip", value: addressV4.description),
-            URLQueryItem(name: "hostname", value: hostname),
+            QueryItem(name: "myip", value: addressV4.description),
+            QueryItem(name: "hostname", value: hostname),
         ])
 
         let v6Request = AnyRequest(path: "nic/update", queryItems: [
-            URLQueryItem(name: "myipv6", value: addressV6.description),
-            URLQueryItem(name: "hostname", value: hostname),
+            QueryItem(name: "myipv6", value: addressV6.description),
+            QueryItem(name: "hostname", value: hostname),
         ])
 
         client = EmulatedDynuClient(requestResponse: [

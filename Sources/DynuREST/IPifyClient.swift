@@ -20,7 +20,10 @@ public class IPIfyClient: BaseURLSessionClient, IPSource {
     }
 
     public func ipAddress() async throws -> IPAddress {
-        let request = AnyRequest(queryItems: [URLQueryItem(name: "format", value: "json")])
+        let request = AnyRequest(
+            path: "",
+            queryItems: [QueryItem(name: "format", value: "json")]
+        )
         let response: IPResponse = try await performRequest(request)
         return response.ip
     }
