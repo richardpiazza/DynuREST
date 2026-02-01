@@ -8,7 +8,7 @@ import FoundationNetworking
 ///
 /// Used for IPv6 Lookup
 public class IFConfigClient: BaseURLSessionClient, IPSource {
-    
+
     /// Response received from the IP api
     ///
     /// ```json
@@ -40,13 +40,13 @@ public class IFConfigClient: BaseURLSessionClient, IPSource {
     private struct IPResponse: Decodable {
         let ip: IPAddress
     }
-    
+
     public static var shared: IFConfigClient = .init()
-    
+
     private init() {
         super.init(baseURL: .ifconfig)
     }
-    
+
     public func ipAddress() async throws -> IPAddress {
         let request = AnyRequest(path: "json")
         let response: IPResponse = try await performRequest(request)

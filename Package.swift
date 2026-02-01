@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,19 +6,21 @@ import PackageDescription
 let package = Package(
     name: "DynuREST",
     platforms: [
-        .macOS(.v12),
-        .iOS(.v15),
-        .tvOS(.v15),
-        .watchOS(.v8),
+        .macOS(.v13),
+        .macCatalyst(.v16),
+        .iOS(.v16),
+        .tvOS(.v16),
+        .watchOS(.v9),
+        .visionOS(.v1),
     ],
     products: [
         .library(name: "DynuREST", targets: ["DynuREST"]),
         .executable(name: "dynu", targets: ["cli"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/richardpiazza/SessionPlus.git", .upToNextMajor(from: "2.2.0")),
-        .package(url: "https://github.com/apple/swift-argument-parser.git", .upToNextMajor(from: "1.2.2")),
-        .package(url: "https://github.com/johnsundell/ShellOut.git", from: "2.3.0")
+        .package(url: "https://github.com/richardpiazza/SessionPlus.git", from: "3.0.0-beta.2"),
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.2"),
+        .package(url: "https://github.com/johnsundell/ShellOut.git", from: "2.3.0"),
     ],
     targets: [
         .executableTarget(
@@ -32,13 +34,13 @@ let package = Package(
             name: "DynuREST",
             dependencies: [
                 "SessionPlus",
-                "ShellOut"
+                "ShellOut",
             ]
         ),
         .testTarget(
             name: "DynuRESTTests",
             dependencies: ["DynuREST"]
-        )
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )

@@ -13,7 +13,7 @@ public enum ResponseCode: Int, Error {
     case toManyRequests = 429
     case internalServerError = 500
     case serviceUnavailable = 503
-    
+
     public init(stringValue: String) {
         switch stringValue {
         case "good":
@@ -37,6 +37,7 @@ public enum ResponseCode: Int, Error {
 }
 
 // MARK: - LocalizedError
+
 extension ResponseCode: LocalizedError {
     public var errorDescription: String? {
         switch self {
