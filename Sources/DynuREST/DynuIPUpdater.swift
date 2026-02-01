@@ -5,22 +5,22 @@ import FoundationNetworking
 #endif
 
 public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
-    
+
     public static var shared: DynuIPUpdater = .init()
-    
+
     /// Default sources for `IPAddress` lookup.
     ///
     /// This order prefers IPv4 before IPv6
     public static let sources: [IPSource] = [
         IPIfyClient.shared,
         IFConfigClient.shared,
-        IFConfigCommand.shared
+        IFConfigCommand.shared,
     ]
-    
+
     private init() {
         super.init(baseURL: .dynuAPI)
     }
-    
+
     /// Retrieves address information from all the provided sources.
     @available(*, deprecated, renamed: "requestIP(from:)")
     public func requestIP(_ sources: [IPSource] = [IPIfyClient.shared, IFConfigClient.shared, IFConfigCommand.shared]) async -> [IPAddress] {
@@ -35,7 +35,7 @@ public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
         }
         return addresses
     }
-    
+
     /// Retrieves a collection of `IPAddress` using the _default_ sources.
     ///
     /// - parameters:
@@ -48,7 +48,7 @@ public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
             return await requestIP(from: DynuIPUpdater.sources)
         }
     }
-    
+
     /// Retrieves a collection of `IPAddress`.
     ///
     /// - parameters:

@@ -18,14 +18,14 @@ public extension DynuClient {
     ///   - group: Use 'location' parameter if you want to update IP address for a collection of hostnames. (`hostname` will be ignored)
     func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String? = nil, group: String? = nil) async throws -> ResponseCode {
         var queryItems: [URLQueryItem] = []
-        
+
         switch address {
         case .ipV4(let value):
             queryItems.append(URLQueryItem(name: "myip", value: value))
         case .ipV6(let value):
             queryItems.append(URLQueryItem(name: "myipv6", value: value))
         }
-        
+
         switch (group, hostname) {
         case (.some(let location), _):
             queryItems.append(URLQueryItem(name: "location", value: location))
@@ -39,13 +39,13 @@ public extension DynuClient {
                 break
             }
         }
-        
+
         let request = AnyRequest(path: "nic/update", queryItems: queryItems)
         let authorizedRequest = request.authorized(authorization)
-        
+
         let url = (try? URLRequest(request: authorizedRequest).url?.absoluteString) ?? ""
         print(url)
-        
+
         let response = try await performRequest(authorizedRequest)
         let value = String(data: response.data, encoding: .utf8) ?? ""
         return ResponseCode(stringValue: value)

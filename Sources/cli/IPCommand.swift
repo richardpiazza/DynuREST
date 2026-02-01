@@ -2,7 +2,7 @@ import ArgumentParser
 import DynuREST
 
 struct IPCommand: AsyncParsableCommand {
-    
+
     static var configuration: CommandConfiguration {
         CommandConfiguration(
             commandName: "ip",
@@ -16,22 +16,22 @@ struct IPCommand: AsyncParsableCommand {
             helpNames: .shortAndLong
         )
     }
-    
+
     enum Source: String, ExpressibleByArgument {
         case ipifyApi
         case ifconfigApi
         case ifconfigCommand
-        
+
         @available(*, deprecated, renamed: "ipifyApi")
         static var ipify: Self { ipifyApi }
-        
+
         @available(*, deprecated, renamed: "ifconfigApi")
         static var ifconfig: Self { ifconfigApi }
     }
-    
+
     @Argument(help: "Lookup Source ['ipify', 'ifconfigApi', 'ifconfigCommand']")
     var source: Source
-    
+
     func run() async throws {
         switch source {
         case .ipifyApi:
