@@ -18,8 +18,9 @@ let package = Package(
         .executable(name: "dynu", targets: ["cli"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/richardpiazza/SessionPlus.git", from: "3.0.0-beta.2"),
+        .package(url: "https://github.com/swiftlang/swift-testing.git", from: "6.2.0"),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.2"),
+        .package(url: "https://github.com/richardpiazza/SessionPlus.git", from: "3.0.0-beta.2"),
         .package(url: "https://github.com/johnsundell/ShellOut.git", from: "2.3.0"),
     ],
     targets: [
@@ -39,7 +40,10 @@ let package = Package(
         ),
         .testTarget(
             name: "DynuRESTTests",
-            dependencies: ["DynuREST"]
+            dependencies: [
+                "DynuREST",
+                .product(name: "Testing", package: "swift-testing"),
+            ]
         ),
     ],
     swiftLanguageVersions: [.v5]
