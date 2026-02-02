@@ -4,19 +4,12 @@ import SessionPlus
 
 struct UpdateCommand: AsyncParsableCommand {
 
-    static var configuration: CommandConfiguration {
-        CommandConfiguration(
-            commandName: "update",
-            abstract: "Perform an IP update against the Dynu.com API",
-            usage: nil,
-            discussion: "",
-            version: "1.0",
-            shouldDisplay: true,
-            subcommands: [],
-            defaultSubcommand: nil,
-            helpNames: .shortAndLong
-        )
-    }
+    static let configuration = CommandConfiguration(
+        commandName: "update",
+        abstract: "Perform an IP update against the Dynu.com API",
+        version: "1.0",
+        helpNames: .shortAndLong
+    )
 
     @Argument(help: "Credential used to perform actions against the API.")
     var username: String
