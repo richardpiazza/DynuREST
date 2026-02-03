@@ -3,24 +3,17 @@ import DynuREST
 
 struct IPCommand: AsyncParsableCommand {
 
-    static var configuration: CommandConfiguration {
-        CommandConfiguration(
-            commandName: "ip",
-            abstract: "Query sources for IP information",
-            usage: nil,
-            discussion: "",
-            version: "1.0",
-            shouldDisplay: true,
-            subcommands: [],
-            defaultSubcommand: nil,
-            helpNames: .shortAndLong
-        )
-    }
+    static let configuration = CommandConfiguration(
+        commandName: "ip",
+        abstract: "Query sources for IP information",
+        version: "1.0",
+        helpNames: .shortAndLong
+    )
 
     enum Source: String, ExpressibleByArgument {
         case ipifyApi
         case ifconfigApi
-        #if os(macOS)
+        #if os(macOS) || os(Linux)
         case ifconfigCommand
         #endif
 
@@ -42,7 +35,7 @@ struct IPCommand: AsyncParsableCommand {
         case .ifconfigApi:
             let address = try await IFConfigClient.shared.ipAddress()
             print(address.description)
-        #if os(macOS)
+        #if os(macOS) || os(Linux)
         case .ifconfigCommand:
             let address = try await IFConfigCommand.shared.ipAddress()
             print(address.description)
