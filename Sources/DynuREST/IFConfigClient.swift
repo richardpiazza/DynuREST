@@ -41,9 +41,6 @@ public final class IFConfigClient: IPSource {
         let ip: IPAddress
     }
 
-    @available(*, deprecated)
-    public static var shared: IFConfigClient = .init()
-
     private let client: any Client
 
     public init() {

@@ -13,9 +13,6 @@ public final class IPIfyClient: IPSource {
         let ip: IPAddress
     }
 
-    @available(*, deprecated)
-    public static var shared: IPIfyClient = .init()
-
     private let client: any Client
 
     public init() {

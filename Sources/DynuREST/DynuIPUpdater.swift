@@ -6,9 +6,6 @@ import FoundationNetworking
 
 public final class DynuIPUpdater: DynuClient {
 
-    @available(*, deprecated)
-    public static var shared: DynuIPUpdater = .init()
-
     /// Default sources for `IPAddress` lookup.
     ///
     /// This order prefers IPv4 before IPv6
@@ -18,7 +15,7 @@ public final class DynuIPUpdater: DynuClient {
             IFConfigClient(),
         ]
         #if os(macOS)
-        ipSources.append(IFConfigCommand.shared)
+        ipSources.append(IFConfigCommand())
         #endif
         return ipSources
     }

@@ -7,9 +7,6 @@ import ShellOut
 /// IPv6 global unicast address
 public final class IFConfigCommand: IPSource {
 
-    @available(*, deprecated)
-    public static var shared: IFConfigCommand = .init()
-
     public init() {}
 
     public func ipAddress() async throws -> IPAddress {
