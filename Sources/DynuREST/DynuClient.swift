@@ -4,8 +4,9 @@ import FoundationNetworking
 #endif
 import SessionPlus
 
-public protocol DynuClient: Client {
-    func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String?, group: String?) async throws -> ResponseCode
+public protocol DynuClient {
+    var client: any Client { get }
+    @concurrent func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String?, group: String?) async throws -> ResponseCode
 }
 
 public extension DynuClient {
@@ -16,7 +17,7 @@ public extension DynuClient {
     ///   - authorization: Credentials used to authenticate against the Dynu API
     ///   - hostname: One or more comma-separated hostnames whose IP address requires update.
     ///   - group: Use 'location' parameter if you want to update IP address for a collection of hostnames. (`hostname` will be ignored)
-    func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String? = nil, group: String? = nil) async throws -> ResponseCode {
+    @concurrent func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String? = nil, group: String? = nil) async throws -> ResponseCode {
         var queryItems: [QueryItem] = []
 
         switch address {
@@ -46,7 +47,7 @@ public extension DynuClient {
         let url = (try? URLRequest(request: authorizedRequest).url?.absoluteString) ?? ""
         print(url)
 
-        let response = try await performRequest(authorizedRequest)
+        let response = try await client.performRequest(authorizedRequest)
         let value = String(decoding: response.body, as: UTF8.self)
         return ResponseCode(stringValue: value)
     }

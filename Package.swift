@@ -1,4 +1,4 @@
-// swift-tools-version:5.10
+// swift-tools-version:6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -18,9 +18,8 @@ let package = Package(
         .executable(name: "dynu", targets: ["cli"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swiftlang/swift-testing.git", from: "6.2.0"),
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.7.0"),
-        .package(url: "https://github.com/richardpiazza/SessionPlus.git", from: "3.0.0-beta.2"),
+        .package(url: "https://github.com/richardpiazza/SessionPlus.git", branch: "feature/swift-6"),
         .package(url: "https://github.com/johnsundell/ShellOut.git", from: "2.3.0"),
     ],
     targets: [
@@ -29,7 +28,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "DynuREST",
-            ]
+            ],
         ),
         .target(
             name: "DynuREST",
@@ -42,18 +41,30 @@ let package = Package(
                         platforms: [
                             .macOS,
                             .linux,
-                        ]
-                    )
+                        ],
+                    ),
                 ),
-            ]
+            ],
         ),
         .testTarget(
             name: "DynuRESTTests",
             dependencies: [
                 "DynuREST",
-                .product(name: "Testing", package: "swift-testing"),
-            ]
+            ],
         ),
     ],
-    swiftLanguageVersions: [.v5]
+    swiftLanguageModes: [
+        .v6,
+        .v5,
+    ],
 )
+
+for target in package.targets {
+    var settings = target.swiftSettings ?? []
+    settings.append(contentsOf: [
+        .enableUpcomingFeature("ExistentialAny"),
+        .enableUpcomingFeature("MemberImportVisibility"),
+        .enableUpcomingFeature("StrictConcurrency=complete"),
+    ])
+    target.swiftSettings = settings
+}

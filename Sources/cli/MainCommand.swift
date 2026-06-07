@@ -6,6 +6,6 @@ import ArgumentParser
         abstract: "CLI to the DynuREST swift package.",
         version: "1.0",
         subcommands: [IPCommand.self, UpdateCommand.self],
-        helpNames: .shortAndLong
+        helpNames: .shortAndLong,
     )
 }
