@@ -6,7 +6,7 @@ import SessionPlus
 
 public protocol DynuClient {
     var client: any Client { get }
-    @concurrent func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String?, group: String?) async throws -> ResponseCode
+    func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String?, group: String?) async throws -> ResponseCode
 }
 
 public extension DynuClient {
@@ -17,7 +17,7 @@ public extension DynuClient {
     ///   - authorization: Credentials used to authenticate against the Dynu API
     ///   - hostname: One or more comma-separated hostnames whose IP address requires update.
     ///   - group: Use 'location' parameter if you want to update IP address for a collection of hostnames. (`hostname` will be ignored)
-    @concurrent func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String? = nil, group: String? = nil) async throws -> ResponseCode {
+    func updateAddress(_ address: IPAddress, using authorization: Authorization, hostname: String? = nil, group: String? = nil) async throws -> ResponseCode {
         var queryItems: [QueryItem] = []
 
         switch address {

@@ -19,7 +19,7 @@ public final class IPIfyClient: IPSource {
         client = BaseURLSessionClient(baseURL: .ipify)
     }
 
-    @concurrent public func ipAddress() async throws -> IPAddress {
+    public func ipAddress() async throws -> IPAddress {
         let request = AnyRequest(
             path: "",
             queryItems: [QueryItem(name: "format", value: "json")],

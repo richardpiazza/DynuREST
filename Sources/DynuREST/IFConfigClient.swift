@@ -47,7 +47,7 @@ public final class IFConfigClient: IPSource {
         client = BaseURLSessionClient(baseURL: .ifconfig)
     }
 
-    @concurrent public func ipAddress() async throws -> IPAddress {
+    public func ipAddress() async throws -> IPAddress {
         let request = AnyRequest(path: "json")
         let response: IPResponse = try await client.performRequest(request)
         return response.ip
