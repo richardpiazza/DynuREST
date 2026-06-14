@@ -1,4 +1,5 @@
 import Foundation
+import Logging
 import SessionPlus
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -24,6 +25,7 @@ public final class DynuIPUpdater: DynuClient {
 
     public init() {
         client = BaseURLSessionClient(baseURL: .dynuAPI)
+        client.setLogLevel(.trace)
     }
 
     /// Retrieves address information from all the provided sources.

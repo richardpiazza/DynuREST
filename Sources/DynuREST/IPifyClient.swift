@@ -1,4 +1,5 @@
 import Foundation
+import Logging
 import SessionPlus
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -17,6 +18,7 @@ public final class IPIfyClient: IPSource {
 
     public init() {
         client = BaseURLSessionClient(baseURL: .ipify)
+        client.setLogLevel(.trace)
     }
 
     public func ipAddress() async throws -> IPAddress {
