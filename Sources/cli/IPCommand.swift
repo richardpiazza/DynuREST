@@ -24,7 +24,7 @@ struct IPCommand: AsyncParsableCommand {
         static var ifconfig: Self { ifconfigApi }
     }
 
-    @Argument(help: "Lookup Source ['ipify', 'ifconfigApi', 'ifconfigCommand']")
+    @Argument(help: "Lookup Source ['ipifyApi', 'ifconfigApi', 'ifconfigCommand']")
     var source: Source
 
     func run() async throws {
