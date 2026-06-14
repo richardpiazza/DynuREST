@@ -1,5 +1,4 @@
 import Foundation
-import Logging
 import SessionPlus
 #if canImport(FoundationNetworking)
 import FoundationNetworking
@@ -46,7 +45,6 @@ public final class IFConfigClient: IPSource {
 
     public init() {
         client = BaseURLSessionClient(baseURL: .ifconfig)
-        client.setLogLevel(.trace)
     }
 
     public func ipAddress() async throws -> IPAddress {
