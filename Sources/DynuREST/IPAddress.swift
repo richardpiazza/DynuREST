@@ -1,6 +1,6 @@
 import Foundation
 
-public enum IPAddress: Equatable, Codable {
+public enum IPAddress: Equatable, Sendable, Codable {
     case ipV4(String)
     case ipV6(String)
 
@@ -33,7 +33,7 @@ public enum IPAddress: Equatable, Codable {
         self = address
     }
 
-    public init(from decoder: Decoder) throws {
+    public init(from decoder: any Decoder) throws {
         let container = try decoder.singleValueContainer()
         let value = try container.decode(String.self)
 
@@ -45,7 +45,7 @@ public enum IPAddress: Equatable, Codable {
         self = address
     }
 
-    public func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: any Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encode(description)
     }
@@ -55,21 +55,21 @@ extension IPAddress: CustomStringConvertible {
     public var description: String {
         switch self {
         case .ipV4(let address), .ipV6(let address):
-            return address
+            address
         }
     }
 
     public var isIPv4: Bool {
         switch self {
-        case .ipV4: return true
-        default: return false
+        case .ipV4: true
+        default: false
         }
     }
 
     public var isIPv6: Bool {
         switch self {
-        case .ipV6: return true
-        default: return false
+        case .ipV6: true
+        default: false
         }
     }
 }

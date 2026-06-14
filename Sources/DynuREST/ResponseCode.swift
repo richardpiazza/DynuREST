@@ -41,12 +41,12 @@ public enum ResponseCode: Int, Error {
 extension ResponseCode: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .ok, .noContent: return ""
-        case .unauthorized, .forbidden: return "Failed authentication for the request or the account was forbidden."
-        case .toManyRequests: return "The server may be under scheduled maintenance."
-        case .internalServerError: return "An error was encountered on the server side."
-        case .serviceUnavailable: return "The server may be under scheduled maintenance."
-        default: return "An invalid request with badly formatted parameters was made."
+        case .ok, .noContent: ""
+        case .unauthorized, .forbidden: "Failed authentication for the request or the account was forbidden."
+        case .toManyRequests: "The server may be under scheduled maintenance."
+        case .internalServerError: "An error was encountered on the server side."
+        case .serviceUnavailable: "The server may be under scheduled maintenance."
+        default: "An invalid request with badly formatted parameters was made."
         }
     }
 }
@@ -54,14 +54,14 @@ extension ResponseCode: LocalizedError {
 extension ResponseCode: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .ok: return "200: OK"
-        case .noContent: return "204: No Content"
-        case .unauthorized: return "401: Unauthorized"
-        case .forbidden: return "403: Forbidden"
-        case .toManyRequests: return "429: To Many Requests"
-        case .internalServerError: return "500: Internal Server Error"
-        case .serviceUnavailable: return "503: Service Unavailable"
-        default: return "400: Bad Request"
+        case .ok: "200: OK"
+        case .noContent: "204: No Content"
+        case .unauthorized: "401: Unauthorized"
+        case .forbidden: "403: Forbidden"
+        case .toManyRequests: "429: To Many Requests"
+        case .internalServerError: "500: Internal Server Error"
+        case .serviceUnavailable: "503: Service Unavailable"
+        default: "400: Bad Request"
         }
     }
 }

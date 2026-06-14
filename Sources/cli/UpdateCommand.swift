@@ -1,5 +1,6 @@
 import ArgumentParser
 import DynuREST
+import Foundation
 import SessionPlus
 
 struct UpdateCommand: AsyncParsableCommand {
@@ -8,7 +9,7 @@ struct UpdateCommand: AsyncParsableCommand {
         commandName: "update",
         abstract: "Perform an IP update against the Dynu.com API",
         version: "1.0",
-        helpNames: .shortAndLong
+        helpNames: .shortAndLong,
     )
 
     @Argument(help: "Credential used to perform actions against the API.")
@@ -35,17 +36,18 @@ struct UpdateCommand: AsyncParsableCommand {
         }
 
         let authorization = Authorization.basic(username: username, password: password)
+        let ipUpdater = DynuIPUpdater()
 
-        let addresses = await DynuIPUpdater.shared.requestIP(preferIPv6: v6)
+        let addresses = await ipUpdater.requestIP(preferIPv6: v6)
         guard let address = addresses.first else {
             throw ValidationError("Failed to retrieve IP Address")
         }
 
-        let responseCode = try await DynuIPUpdater.shared.updateAddress(
+        let responseCode = try await ipUpdater.updateAddress(
             address,
             using: authorization,
             hostname: hostname,
-            group: group ?? location
+            group: group ?? location,
         )
 
         print(responseCode.description)

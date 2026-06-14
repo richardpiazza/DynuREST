@@ -7,24 +7,24 @@ import FoundationNetworking
 /// A Simple Public IP Address API
 ///
 /// Used for IPv4 Lookup
-public class IPIfyClient: BaseURLSessionClient, IPSource {
+public final class IPIfyClient: IPSource {
 
     private struct IPResponse: Decodable {
         let ip: IPAddress
     }
 
-    public static var shared: IPIfyClient = .init()
+    private let client: any Client
 
-    private init() {
-        super.init(baseURL: .ipify)
+    public init() {
+        client = BaseURLSessionClient(baseURL: .ipify)
     }
 
     public func ipAddress() async throws -> IPAddress {
         let request = AnyRequest(
             path: "",
-            queryItems: [QueryItem(name: "format", value: "json")]
+            queryItems: [QueryItem(name: "format", value: "json")],
         )
-        let response: IPResponse = try await performRequest(request)
+        let response: IPResponse = try await client.performRequest(request)
         return response.ip
     }
 }

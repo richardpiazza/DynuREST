@@ -14,12 +14,13 @@ The `DynuIPUpdater` shared instance allows for sending IP information to the Dyn
 
 ```swift
 let address = IPAddress.ipV4("X.X.X.X")
-let response = try await DynuIPUpdater.shared.updateAddress(address, using: .basic("username", "password"))
+let client = DynuIPUpdater()
+let response = try await client.updateAddress(address, using: .basic("username", "password"))
 ```
 
 IP address information can be obtained through any means, but **DynuREST** has two built-in providers:
-* `IPifyClient.shared`
-* `IFConfigClient.shared`
+* `IPifyClient`
+* `IFConfigClient`
 
 These both implement the `IPSource` protocol:
 ```swift

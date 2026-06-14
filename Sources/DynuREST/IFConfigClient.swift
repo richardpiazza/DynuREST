@@ -7,7 +7,7 @@ import FoundationNetworking
 /// IFConfig.co: "The best tool to find your own IP address, and information about it."
 ///
 /// Used for IPv6 Lookup
-public class IFConfigClient: BaseURLSessionClient, IPSource {
+public final class IFConfigClient: IPSource {
 
     /// Response received from the IP api
     ///
@@ -41,15 +41,15 @@ public class IFConfigClient: BaseURLSessionClient, IPSource {
         let ip: IPAddress
     }
 
-    public static var shared: IFConfigClient = .init()
+    private let client: any Client
 
-    private init() {
-        super.init(baseURL: .ifconfig)
+    public init() {
+        client = BaseURLSessionClient(baseURL: .ifconfig)
     }
 
     public func ipAddress() async throws -> IPAddress {
         let request = AnyRequest(path: "json")
-        let response: IPResponse = try await performRequest(request)
+        let response: IPResponse = try await client.performRequest(request)
         return response.ip
     }
 }

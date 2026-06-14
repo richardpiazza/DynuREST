@@ -4,31 +4,31 @@ import SessionPlus
 import FoundationNetworking
 #endif
 
-public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
-
-    public static var shared: DynuIPUpdater = .init()
+public final class DynuIPUpdater: DynuClient {
 
     /// Default sources for `IPAddress` lookup.
     ///
     /// This order prefers IPv4 before IPv6
-    public static var sources: [IPSource] {
-        var ipSources: [IPSource] = [
-            IPIfyClient.shared,
-            IFConfigClient.shared,
+    public static var sources: [any IPSource] {
+        var ipSources: [any IPSource] = [
+            IPIfyClient(),
+            IFConfigClient(),
         ]
         #if os(macOS)
-        ipSources.append(IFConfigCommand.shared)
+        ipSources.append(IFConfigCommand())
         #endif
         return ipSources
     }
 
-    private init() {
-        super.init(baseURL: .dynuAPI)
+    public let client: any Client
+
+    public init() {
+        client = BaseURLSessionClient(baseURL: .dynuAPI)
     }
 
     /// Retrieves address information from all the provided sources.
     @available(*, deprecated, renamed: "requestIP(from:)")
-    public func requestIP(_ sources: [IPSource] = DynuIPUpdater.sources) async -> [IPAddress] {
+    public func requestIP(_ sources: [any IPSource] = DynuIPUpdater.sources) async -> [IPAddress] {
         var addresses: [IPAddress] = []
         for source in sources {
             do {
@@ -48,9 +48,9 @@ public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
     /// - returns: Collection of available `IPAddress` as provided by the default sources.
     public func requestIP(preferIPv6: Bool) async -> [IPAddress] {
         if preferIPv6 {
-            return await requestIP(from: DynuIPUpdater.sources.reversed())
+            await requestIP(from: DynuIPUpdater.sources.reversed())
         } else {
-            return await requestIP(from: DynuIPUpdater.sources)
+            await requestIP(from: DynuIPUpdater.sources)
         }
     }
 
@@ -59,7 +59,7 @@ public final class DynuIPUpdater: BaseURLSessionClient, DynuClient {
     /// - parameters:
     ///   - sources: The collection of `IPSource` which should be queried for addresses.
     /// - returns: Collection of available `IPAddress` as provided by the `sources`.
-    public func requestIP(from sources: [IPSource]) async -> [IPAddress] {
+    public func requestIP(from sources: [any IPSource]) async -> [IPAddress] {
         var addresses: [IPAddress] = []
         for source in sources {
             do {

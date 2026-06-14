@@ -1,18 +1,29 @@
 @testable import DynuREST
+import Foundation
 import SessionPlus
 import SessionPlusEmulation
 import Testing
 
 struct DynuAPITests {
 
-    private class EmulatedDynuClient: EmulatedClient, DynuClient {}
+    private class EmulatedDynuClient: DynuClient {
+        let client: any Client
+
+        init(client: any Client) {
+            self.client = client
+        }
+
+        init(requestResponse: [(any Request, any Response)]) {
+            client = EmulatedClient(requestResponse: requestResponse)
+        }
+    }
 
     private static let addressV4 = IPAddress.ipV4("24.7.206.125")
     private static let addressV6 = IPAddress.ipV6("2601:445:8400:42f:517e:7782:4650:9367")
     private static let hostname = "dynurest.freeddns.org"
-    private static let okResponse: Response = AnyResponse(statusCode: .ok, headers: .init(), body: "good".data(using: .utf8)!)
+    private static let okResponse: any Response = AnyResponse(statusCode: .ok, headers: .init(), body: "good".data(using: .utf8)!)
 
-    private static func client() -> DynuClient {
+    private static func client() -> any DynuClient {
         let v4Request = AnyRequest(path: "nic/update", queryItems: [
             QueryItem(name: "myip", value: addressV4.description),
             QueryItem(name: "hostname", value: hostname),
@@ -27,7 +38,7 @@ struct DynuAPITests {
             requestResponse: [
                 (v4Request, okResponse),
                 (v6Request, okResponse),
-            ]
+            ],
         )
     }
 
@@ -39,7 +50,7 @@ struct DynuAPITests {
         let responseCode = try await client.updateAddress(
             Self.addressV4,
             using: .basic(username: username, password: password),
-            hostname: Self.hostname
+            hostname: Self.hostname,
         )
         #expect(responseCode == .ok)
     }
@@ -49,7 +60,7 @@ struct DynuAPITests {
         let responseCode = try await client.updateAddress(
             Self.addressV6,
             using: .basic(username: username, password: password),
-            hostname: Self.hostname
+            hostname: Self.hostname,
         )
         #expect(responseCode == .ok)
     }

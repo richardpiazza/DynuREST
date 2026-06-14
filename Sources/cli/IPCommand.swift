@@ -7,7 +7,7 @@ struct IPCommand: AsyncParsableCommand {
         commandName: "ip",
         abstract: "Query sources for IP information",
         version: "1.0",
-        helpNames: .shortAndLong
+        helpNames: .shortAndLong,
     )
 
     enum Source: String, ExpressibleByArgument {
@@ -24,20 +24,23 @@ struct IPCommand: AsyncParsableCommand {
         static var ifconfig: Self { ifconfigApi }
     }
 
-    @Argument(help: "Lookup Source ['ipify', 'ifconfigApi', 'ifconfigCommand']")
+    @Argument(help: "Lookup Source ['ipifyApi', 'ifconfigApi', 'ifconfigCommand']")
     var source: Source
 
     func run() async throws {
+        let ipifyClient = IPIfyClient()
+        let ifConfigClient = IFConfigClient()
+
         switch source {
         case .ipifyApi:
-            let address = try await IPIfyClient.shared.ipAddress()
+            let address = try await ipifyClient.ipAddress()
             print(address.description)
         case .ifconfigApi:
-            let address = try await IFConfigClient.shared.ipAddress()
+            let address = try await ifConfigClient.ipAddress()
             print(address.description)
         #if os(macOS) || os(Linux)
         case .ifconfigCommand:
-            let address = try await IFConfigCommand.shared.ipAddress()
+            let address = try await ifConfigClient.ipAddress()
             print(address.description)
         #endif
         }

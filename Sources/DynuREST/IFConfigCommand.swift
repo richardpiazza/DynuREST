@@ -5,11 +5,9 @@ import ShellOut
 
 /// Uses the `ifconfig` command on the local machine to determine the
 /// IPv6 global unicast address
-public class IFConfigCommand: IPSource {
+public final class IFConfigCommand: IPSource {
 
-    public static var shared: IFConfigCommand = .init()
-
-    private init() {}
+    public init() {}
 
     public func ipAddress() async throws -> IPAddress {
         let output = try shellOut(to: "ifconfig | grep inet6 | grep -v fe80 | grep secured")
