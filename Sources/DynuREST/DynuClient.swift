@@ -43,10 +43,6 @@ public extension DynuClient {
 
         let request = AnyRequest(path: "nic/update", queryItems: queryItems)
         let authorizedRequest = request.authorized(authorization)
-
-        let url = (try? URLRequest(request: authorizedRequest).url?.absoluteString) ?? ""
-        print(url)
-
         let response = try await client.performRequest(authorizedRequest)
         let value = String(decoding: response.body, as: UTF8.self)
         return ResponseCode(stringValue: value)
